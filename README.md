@@ -13,7 +13,7 @@
 ## Installation
 This one-line installation does not support every OS
 ```bash
-curl -sL "https://raw.githubusercontent.com/vinodnimbalkar/mxplayer/master/mxplayer" | sudo tee ~/.local/bin/mxplayer >/dev/null && sudo chmod +x ~/.local/bin/mxplayer
+curl -sL "https://raw.githubusercontent.com/vinodnimbalkar/mxplayer/main/mxplayer" | sudo tee ~/.local/bin/mxplayer >/dev/null && sudo chmod +x ~/.local/bin/mxplayer
 ```
 
 ## Usage
