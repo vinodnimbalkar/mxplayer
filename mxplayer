@@ -5,5 +5,5 @@
 #> https://github.com/vinodnimbalkar/mxplayer
 #############################################
 
-response=$(curl -s $1 | tr "," "\n" | grep -E '(^\"contentUrl\":\"https:\/\/llvod\.mxplay\.comvideo).*(.m3u8)' | cut -d '"' -f 4)
+response=$(curl -s $1 | tr "," "\n" | grep -E '(^\"contentUrl\":\"https:\/\/llvod\.mxplay\.com\/video).*(.m3u8)' | cut -d '"' -f 4)
 mpv "${response/comvideo/com/video}"
