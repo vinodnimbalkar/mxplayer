@@ -5,5 +5,11 @@
 #> https://github.com/vinodnimbalkar/mxplayer
 #############################################
 
-response=$(curl -s $1 | tr "," "\n" | grep -E '(^\"contentUrl\":\"https:\/\/llvod\.mxplay\.com\/video).*(.m3u8)' | cut -d '"' -f 4)
-mpv "${response/comvideo/com/video}"
+if [[ $1 == *"live-tv"* ]]
+then
+    response=$(curl -s https://www.mxplayer.in/live-tv/lock-upp-live-live-channel-8090lockupin | sed 's/\"https:\/\/llvod\.mxplay\.com\/\"/\n/g' | sed 's/"},"/\n/g' | grep -Eo '(https:\/\/mxlook-content\.akamaized.net/v1/master).*(master\.m3u8)' | head -n 1)
+    mpv $response
+else
+    response=$(curl -s $1 | tr "," "\n" | grep -E '(^\"contentUrl\":\"https:\/\/llvod\.mxplay\.com\/video).*(.m3u8)' | cut -d '"' -f 4)
+    mpv "${response/comvideo/com/video}"
+fi
