@@ -10,6 +10,7 @@ then
     response=$(curl -s $1 | sed 's/\"https:\/\/llvod\.mxplay\.com\/\"/\n/g' | sed 's/"},"/\n/g' | grep -Eo '(https:\/\/mxlook-content\.akamaized.net/v1/master).*(master\.m3u8)' | head -n 1)
     mpv $response
 else
-    response=$(curl -s $1 | tr "," "\n" | grep -E '(^\"contentUrl\":\"https:\/\/llvod\.mxplay\.com\/video).*(.m3u8)' | cut -d '"' -f 4)
-    mpv "${response/comvideo/com/video}"
+    response=$(curl -s $1 | tr "," "\n" | grep -E '(^\"contentUrl\":\"https:\/\/media-content\.akamaized\.net\/video).*(.m3u8)' | cut -d '"' -f 4)
+    echo $response
+    mpv "${response}"
 fi
