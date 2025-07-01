@@ -10,7 +10,15 @@ then
     response=$(curl -s $1 | sed 's/\"https:\/\/llvod\.mxplay\.com\/\"/\n/g' | sed 's/"},"/\n/g' | grep -Eo '(https:\/\/mxlook-content\.akamaized.net/v1/master).*(master\.m3u8)' | head -n 1)
     mpv $response
 else
-    response=$(curl -s $1 | tr "," "\n" | grep -E '(^\"contentUrl\":\"https:\/\/media-content\.akamaized\.net\/video).*(.m3u8)' | cut -d '"' -f 4)
-    echo $response
+    #!/bin/bash
+
+    # Extract .m3u8 content URLs from both Akamai and CloudFront
+    response=$(curl -s "$1" | \
+               tr "," "\n" | \
+               grep -E '^[[:space:]]*"contentUrl":"https://(d3sgzbosmwirao\.cloudfront\.net|media-content\.akamaized\.net)/.*\.m3u8"' | \
+               cut -d '"' -f 4)
+
+    # Print the results
+    echo "$response"
     mpv "${response}"
 fi
